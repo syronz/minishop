@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html ng-app="posApp">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>ERP14</title>
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	<link href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATcZYyG6vhIgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEm+TMB+59ZgAAAAAAAAAAAAAAAAIPjwZFoarAwAAAAAAAAAAAAAAAAAAAAAAAAAAE3KWUxNwlCUAAAAAAAAAABJtjy8fuPSUAAAAAAAAAAASbY8YH7fykxqe0gwAAAAAAAAAAAAAAAAAAAAAAAAAABeHsjYfufXFF4m1RQAAAAATc5oMHrTwGRuh1QsdsuoGHrTuUx618EYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAF4SvKheKt08QXHokH7n2nB+49cgfufXIH7n1fBBceiUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQXHsoH7n3yh+49GgXibQzF4q4NB+59oMfuvfQEFt5HgAAAAAAAAAACz9RAgtBVgYSaIkHE3GVOBNyl0USbpALH7r2ex+49Wcdr+QBAAAAAAAAAAAdseYeHrbwjR649HsQXnsKHbDobB+486EeruYUHbXuMB638nQfuPWZHrXwVh+59bgXirYyAAAAAAAAAAAAAAAAAAAAABeItSIetfBpG6XZHR6171oPWncgAAAAAAAAAAAAAAAAAAAAABqd0AwfuPW9F4m2MAAAAAAAAAAAAAAAAAAAAAAcpNYRHKjbFgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAantAGH7n2lh+38l0cqdoBAAAAAAAAAAAetO0ZHrXuUheFrxQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAILTwIHrbxWx+28VQfufbIH7fyXBeJtjIXirg1HrbwZh607VsXiLMpAAAAAAAAAAAAAAAAAAAAAAAAAAAILTwEH7bzdh649YwesuwgEF16KB+59YYet/OOHrfzhheHskAXibQwHrfynxqg044PV3EWAAAAAAAAAAAAAAAADEBUGR+y61AAAAAAAAAAAAAAAAATcpYJH7fykRqe0TgAAAAAD1p2ARqh1Q0aoNMRD1dxAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE3OZCR+49aUbodYuAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABNvlAQft/ODG6LWOQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHrDpJxqayyYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//8AAP7/AAD+7wAA7/8AAPx/AAD7nwAA/90AANf/AAD3/wAA9/8AAPv/AADsZwAA/v8AAP7/AAD+/wAA//8AAA==" rel="icon" type="image/x-icon" />
+
+	<link rel="stylesheet" href="pos/bootstrap.min.css">
+	<link rel="stylesheet" href="pos/dataTables.bootstrap.css">
+	<link rel="stylesheet" href="pos/font-awesome.min.css">
+	<script src="pos/jQuery-2.1.4.min.js"></script>
+	<script src="pos/spin.min.js"></script>
+	<script src="pos/bootstrap.min.js"></script>
+	<script src="pos/angular.min.js"></script>
+
+	<style type="text/css">
+		.absorb{
+			background-color: black;
+			color: #00FF00;
+			font-size: 1.5em;
+			direction: rtl;
+			padding: 10px;
+		}
+	</style>
+
+	<script>
+		function dsh(){
+			for(a in arguments)
+				console.log(arguments[a]);
+		}
+
+		var posApp = angular.module('posApp', []);
+
+		posApp.controller('mainCtrl', function($scope,$http) {
+			$scope.test = true;
+			$scope.newQty = 1;
+
+			var sample_invoice = {
+				tax: 0, 
+				customer_info:  {name: "", phone: "", detail: ""},
+				items:[],
+				discountAmount : 0
+			};
+
+			$scope.invoice = sample_invoice;
+			$scope.addItem = function() {
+				$scope.invoice.items.push({qty:1, cost:0});    
+			}
+			$scope.removeItem = function(item) {
+				$scope.invoice.items.splice($scope.invoice.items.indexOf(item), 1);    
+			}
+
+			$scope.invoice_sub_total = function() {
+				var total = 0.00;
+
+				angular.forEach($scope.invoice.items, function(item, key){
+					console.log(item.cost,item.qty);
+					total += (item.qty * item.cost);
+				});
+				console.log(total);
+				$scope.invoice.subTotal = total;
+				return total;
+			}
+			$scope.calculate_tax = function() {
+				return (($scope.invoice.tax * $scope.invoice_sub_total())/100);
+			}
+			$scope.calculate_grand_total = function() {
+				return $scope.invoice.subTotal - $scope.invoice.discountAmount;
+			} 
+
+			$scope.calculate_discountAmount = function() {
+				$scope.invoice.discount = $scope.invoice.discountAmount / $scope.invoice.subTotal * 100;
+			}
+
+
+
+			$scope.newItem = function(e){
+				if(e.keyCode == 13){
+					if($scope.newCode){
+						$http.get("control.php?action=stuffByBarcode&barcodeStr="+$scope.newCode).
+						success(function(data, status, headers, config) {
+							var item = {qty:1, cost:0};
+
+							item.qty = $scope.newQty;
+							item.cost = data.Records.price;
+							item.name = data.Records.name;
+							item.price_buy = data.Records.price_buy;
+							item.id = data.Records.id;
+							item.stuff2 = data.Records;
+
+							// console.log(item);
+
+							$scope.invoice.items.push(item);
+							$scope.invoice_sub_total();
+							$scope.newCode = '';
+							$scope.newQty = 1;
+						}).
+						error(function(data, status, headers, config) {
+							$log.info(data);
+						});
+						// $scope.addItem();
+						// $scope.doFocus();
+					}
+
+					if($scope.newCode == ''){
+						$scope.saveAdd();
+					}
+				}
+			}
+
+			$scope.saveAdd = function(){
+				var tmpData = $scope.invoice;
+				$scope.invoice = {};
+				console.log(tmpData);
+				$http.post("control.php?action=invoiceAdd",{data:tmpData}).
+				success(function(data, status, headers, config) {
+					console.log('success',data,$scope.elementAdding);
+					if(data.Result){
+						$scope.invoice.items = [];
+						$scope.invoice.customer_info = [];
+						$scope.invoice.discountAmount = 0;
+						$scope.invoice.tax = 0;
+						
+
+
+					}
+					else{
+						alert(data.Records);
+					}
+				}).
+				error(function(data, status, headers, config) {
+					console.log('error',data, status, headers, config);
+				});
+			}
+
+
+
+			$scope.resetInvoice = function(){
+				$scope.invoice = {
+					accountType : 'customer',
+					id_account : 13,
+					type : 'active',
+					pay : {},
+					discount: 0.00, 
+					discountAmount: 0.00,
+					items:[],
+					subTotal:0,
+					pay:{id_account:{id:10}}
+				};
+				$scope.invoice_sub_total();
+			}
+
+
+
+
+			$scope.printInvoice = function(){
+				var printDivCSS = new String ("<style>.noPrint,h6,.img{display:none}h2,h3,h5{text-align:center}*{font-family:sans serif;margin:0}table{border-collapse:collapse;border:1px solid gray;width:100%;margin:10px auto}.facture_footer,.facture_header{background-image:url();background-repeat:no-repeat;width:100%}td{border:1px solid gray;text-align:right;padding-right:3px;font-size:9pt;font-family:sans serif;padding-top:1px;padding-bottom:1px}tr:nth-child(even){background-color:#FFF}h5{margin-top:30px;margin-bottom:5px}.clear{clear:both}h2,h3{font-size:9pt}.facture_header{height:150px;background-size:650px 140px}.facture_footer{height:100px;background-size:650px 92px}th{font-size:9pt;height:150%;background-color:#DDD}a{text-decoration:none}</style>");
+
+				window.frames["print_frame"].document.body.innerHTML= printDivCSS + document.getElementById("printThis").innerHTML;
+				// window.document.write("<style>td{border:1px solid black}</style>" + document.getElementById("printThis").innerHTML);
+				window.frames["print_frame"].window.focus();
+				window.frames["print_frame"].window.print();
+			}
+
+
+		});
+	</script>
+
+</head>
+<body ng-controller="mainCtrl">
+
+	<div class="wrapper">
+		<div class="content-wrapper">
+			<div class="col-md-6">
+				<div class="form-inline" style="padding: 10px;">
+					
+
+					<div class="form-group">
+						<label for="barcode">بارکۆد</label>
+						<input type="text" name="barcode" class="form-control" ng-model="newCode" ng-keypress="newItem($event,item)" placeholder="Code">
+					</div>
+
+					<div class="form-group">
+						<label for="barcode">عەدەد</label>
+						<input class="form-control" ng-model="newQty" type="number" value="1" size="4" ng-required ng-validate="integer" placeholder="qty" style="width:70px;">
+					</div>
+					
+
+				</div>
+				<div id="printThis">
+					<table class="table table-striped"  align="center" >
+						<tr>
+							<th class="noPrint"></th>
+							<th style="min-width:130"><d>بەرهەم</d></th>
+							<!-- <th><d>Product</d></th> -->
+							<th style="width:30px;"><d>عەدەد</d></th>
+							<th><d>نرخ</d></th>
+							<!-- <th style="width:100px;"><d>priceBuy</d></th> -->
+							<!-- <th><d>description</d></th> -->
+							<th style=""><p>کۆی</p></th>
+						</tr>
+						<tr ng-repeat="item in invoice.items" jq-animate="dropdown;250">
+							<td width="30" class="noPrint"><a href ng-click="removeItem(item)" class="btn btn-danger btn-sm">x</a></td>
+							<!-- <td><input type="text" class="form-control" ng-model="item.code" ng-keypress="codeChange($event,item)" placeholder="Code"></td> -->
+							<td>
+								<!-- <select class="form-control" id="brand" ng-options="brand.name for brand in brandList track by brand.id" ng-change="updateProductList(item)" ng-model="item.id_brand" name="brand" ></select> -->
+								<span> {{item.name}}</span>
+							</td>
+
+						<!-- <td>
+							<select class="form-control" id="product" ng-options="product.name for product in item.productList track by product.id" ng-change="updatePrice(item)" ng-model="item.id_product" name="product" ></select>
+						</td> -->
+						<td>
+							<!-- <input class="form-control" ng-model="item.qty" type="number" value="1" size="4" ng-required ng-validate="integer" placeholder="qty" ng-change="invoice_sub_total()"> -->
+							<span>{{item.qty}}</span>
+						</td>
+						<td>
+							<!-- <input class="form-control" ng-model="item.cost" value="0.00" ng-required ng-validate="number" size="6" placeholder="cost" ng-change="invoice_sub_total()"> -->
+							<span>{{item.cost| currency:"":0}}</span>
+						</td>
+						<!-- <td  style="width:100px;"><input style="text-align:right;" class="form-control" value="{{item.price_buy | currency}}" disabled></td>
+						<td><input class="form-control" ng-model="item.description" type="text" size="6" placeholder="description"></td> -->
+
+						<td align="right">
+							<!-- <input style="text-align:right;" class="form-control" value="{{item.cost * item.qty | currency}}" disabled> --> 
+							<span>{{item.cost * item.qty | currency:"":0}}</span>
+						</td>
+
+					</tr>
+					<!--<tr ng-hide="printMode">
+						 <td colspan="9"><a class="btn btn-primary btn-sm" href ng-click="addItem()" > + </a></td> 
+						</tr>-->
+						<tr>
+							<td align="right" class="noPrint"></td>
+							<td colspan="3" align="right">
+								<d>کۆی گشتی</d>:
+							</td>
+							<td align="right">
+								{{invoice.subTotal | currency:"":0}}
+							</td>
+						</tr>
+						<tr>
+							<td align="right" class="noPrint"></td>
+							<td colspan="3" align="right">
+								<d>داشکاندن</d>: <input  ng-change="calculate_discountAmount()" ng-model="invoice.discountAmount" ng-validate="number" class="noPrint" style="width:43px">
+							</td>
+						<!-- <td colspan="2" align="right">
+							<d>Discount</d>(%): <input ng-change="calculate_discount()" ng-model="invoice.discount" ng-validate="number" style="width:43px">
+						</td> -->
+						<td align="right">
+							{{invoice.discountAmount | currency:"":0}}
+						</td>
+					</tr>
+					<tr>
+						<td align="right" class="noPrint"></td>
+						<td colspan="3" align="right">
+							<d>کۆی گشتی دوای داشکاندن</d>:
+						</td>
+						<td align="right">
+							{{calculate_grand_total() | currency:"":0}}
+						</td>
+					</tr>
+					<!-- <tr>
+						<td colspan="2" align="right">
+							<d>Detail</d>:
+						</td>
+						<td colspan="8"align="right">
+							<input class="form-control" ng-model="invoice.detail" type="text" >
+						</td>
+					</tr> -->
+				</table>
+			</div>
+
+		</div>
+
+		<div class="col-md-6">
+			<div class="absorb">
+				<p>کۆی گشتی: {{invoice.subTotal | currency:"":0}}</p>
+				<p>داشکاندن: {{invoice.discountAmount | currency:"":0}}</p>
+				<p>------------------------------</p>
+				<p>کۆی گشتی دوای داشکاندن: {{calculate_grand_total() | currency:"":0}}</p>
+			</div>
+			<br>
+			<div>
+				<button type="button" class="btn btn-lg btn-primary" ng-click="printInvoice()">پرینت</button>
+				<button type="button" class="btn btn-lg btn-success" ng-click="saveInvoice()">خەزن</button>
+				<button type="button" class="btn btn-lg btn-warning"  ng-click="resetInvoice()" style="float: right;">رێسێت</button>
+
+
+			</div>
+		</div>
+	</div>
+</div>
+<iframe name="print_frame" width="0" height="0" frameborder="0" id="print_frame" src="about:blank"></iframe>
+</body>
+</html>

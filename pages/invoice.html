@@ -1,0 +1,127 @@
+<div class="row">
+	<div class="col-xs-12 col-md-12">
+		<div class="col-xs-12 col-sm-9 col-md-9">
+			<div id="printThis" class="panel panel-info ">
+				<div class="panel-heading">
+					<h3 class="panel-title">{{l('invoice')}}</h3>
+				</div>
+				<div class="panel-body dashboard invoice"  ng-init="list()">
+				<div class="noPrint">
+          <div class="col-xs-4 col-sm-4 col-md-4"><input type="text" ng-model="invoice.customer_info.name" placeholder="{{l('customer')}}"/></div>
+          <div class="col-xs-4 col-sm-4 col-md-4"><input type="text" ng-model="invoice.customer_info.phone" placeholder="{{l('phoneNumber')}}"/></div>
+          <div class="col-xs-4 col-sm-4 col-md-4"><input type="text" ng-model="invoice.customer_info.detail" placeholder="{{l('detail')}}"/></div>
+        </div>
+					<table class="table noPrint">
+						<tr>
+							<th style="width:3%;">{{l('actions')}}</th>
+							<th style="width:20%;">{{l('barcode')}}</th>
+							<!-- <th style="width:20%;">{{l('category')}}</th> -->
+							<th style="width:17%;">{{l('stuff')}}</th>
+							<th style="width:10%;">{{l('qty')}}</th>
+							<th style="width:15%;">{{l('price')}}</th>
+							<th style="width:15%;">{{l('totalPrice')}}</th>
+						</tr>	
+						<tr ng-repeat="item in invoice.items">
+							<td><a href ng-hide="printMode" ng-click="removeItem(item)" class="btn btn-danger btn-xs">x</a></td>
+
+							<td><input ng-model="item.barcode" placeholder="Barcode" class="barcodeStr" ng-keypress="barcodeChange($event,item);$item.barcodePress = true"></td>
+							<!-- <td>
+								<select ng-model="item.stuffCat" ng-change="loadStuff(item.stuffCat);$item.barcodePress = false">
+									<option ng-repeat="stuffCat in stuffCatList" value="{{stuffCat.id}}">{{stuffCat.name}}</option>
+								</select>
+
+							</td> -->
+							<td>
+								<!-- <select ng-model="item.stuff" ng-change="loadPrice(item)" ng-if="!$item.barcodePress">
+									<option ng-repeat="stuff in stuffList[item.stuffCat]" value="{{stuff}}">{{stuff.name}}</option>
+								</select> -->
+								<input ng-model="item.stuff2.name" ng-if="$item.barcodePress" style="width:120px;">
+							</td>
+
+							<td><input ng-model="item.qty" value="1" size="4" ng-required ng-validate="integer" placeholder="qty"></td>
+							<td><input ng-model="item.cost" value="0" ng-required ng-validate="number" size="16" placeholder="cost"></td>
+							<td align="right">{{item.cost * item.qty }}</td>
+						</tr>
+						<tr>
+							<td colspan="7"><a class="btn btn-primary" href ng:click="addItem()" >{{l('addItem')}}</a></td>
+						</tr>
+						<!-- <tr>
+							<td></td>
+							<td colspan="5" align="right">
+								{{l('subTotal')}}
+							</td>
+							<td align="right">
+								{{invoice_sub_total()}}
+							</td>
+						</tr> 
+						<tr>
+						<td></td>
+							<td colspan="5" align="right">
+								{{l('discount')}} <input ng:model="invoice.tax" ng:validate="number" style="width:43px">
+							</td>
+							<td align="right">
+								{{calculate_tax()}}
+							</td>
+						</tr>-->
+						<tr>
+						<td></td>
+							<td colspan="5" align="right">
+								{{l('grandTotal')}}
+							</td>
+							<td align="right">
+								{{calculate_grand_total()}}
+							</td>
+						</tr>
+						<tr>
+							<td colspan="7"><a href="" class="btn btn-primary btn-ms pull-right" ng-click="saveAdd();">{{l('Save')}}</a></td>
+						</tr>
+					</table>	
+
+
+
+					<table  ng-table="tableParams" class="table table-striped">
+						<tr ng-repeat="element in $data" ng-hide="element.$delete">
+							<td data-title="wID" sortable="'id'">
+								{{element.id}}
+							</td>
+							<td data-title="wCustomer" sortable="'name'">
+								<span>{{element.name}}</span>
+							</td>
+							<td data-title="wPhone" sortable="'phone'">
+								<span>{{element.phone}}</span>
+							</td>
+							<td data-title="wDate" sortable="'date'" style="width:220px;">
+								<span>{{element.date}}</span>
+							</td>
+							<td data-title="wDetail">
+								<span>{{element.detail}}</span>
+							</td>
+							<td data-title="wActions" width="50">
+								<!-- <a ng-if="!element.$edit" href="" class="btn btn-default btn-xs" ng-click="element.$edit = true">{{l('Edit')}}</a> -->
+								<a ng-if="!element.$edit" href="" class="btn btn-danger btn-xs" ng-click="element.$delete = true; delete(element.id)">{{l('Delete')}}</a>
+							</td>
+						</tr>
+					</table>
+					<p class="bg-danger" ng-show="warning" style="padding:10px; text-align:center; font-size:1.5em;">{{l(warning)}} </p>
+
+
+
+
+				</div>
+			</div>
+		</div>
+
+		<div class="col-xs-12 col-sm-3 col-md-3">
+			<div class="list-group {{tr}}">
+				<a href="#" class="list-group-item">{{l('dashboard')}}</a>
+				<a class="list-group-item active">{{l('invoice')}}</a>
+				<a href="" class="list-group-item" ng-click="doPrint()">{{l('print')}}</a>
+			</div>
+			<div class="panel panel-info ">
+				<div class="panel-body {{tr}}">
+					<p>{{l('invoicePartTip')}}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

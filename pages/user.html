@@ -1,0 +1,111 @@
+<div class="row">
+	<div class="col-xs-12 col-md-12">
+		<div class="col-xs-12 col-sm-9 col-md-9">
+			<div id="printThis" class="panel panel-info ">
+				<div class="panel-heading">
+					<h3 class="panel-title">{{l('userList')}}
+						<a href="" class="btn btn-primary btn-xs pull-right noPrint" ng-click="userAdd = !userAdd">{{l('addNew')}}</a>
+					</h3>
+					
+				</div>
+				<div class="panel-body dashboard"  ng-init="list()">
+					<table class="table noPrint" ng-if="userAdd">
+						<tr>
+							<th style="width:16%;">{{l('permission')}}</th>
+							<th>{{l('name')}}</th>
+							<th>{{l('username')}}</th>
+							<th>{{l('password')}}</th>
+							<th>{{l('language')}}</th>
+							<th>{{l('detail')}}</th>
+						</tr>	
+						<tr>
+							<td>
+								<select class="form-control" ng-model="elementAdding.perm">
+									<option ng-repeat="perm in permList" value="{{perm.id}}">{{perm.name}}</option>
+								</select>
+							</td>
+							<td><input class="form-control" type="text" ng-model="elementAdding.name" /></td>
+							<td><input class="form-control" type="text" ng-model="elementAdding.username" /></td>
+							<td><input class="form-control" type="text" ng-model="elementAdding.password" /></td>
+							<td>
+								<select class="form-control" ng-model="elementAdding.lang2">
+									<option value="en">En</option>
+									<option value="ku">Ku</option>
+								</select>
+							</td>
+							<td><input class="form-control" type="text" ng-model="elementAdding.detail" /></td>
+							<td><a href="" class="btn btn-primary btn-ms" ng-click="saveAdd();">{{l('Save')}}</a></td>
+						</tr>
+					</table>
+
+					<table  ng-table="tableParams" class="table table-striped">
+						<tr ng-repeat="element in $data" ng-hide="element.$delete">
+							<td data-title="wID" sortable="'id'">
+								{{element.id}}
+							</td>
+							<td data-title="wPermission" sortable="'id_perm'">
+								<span ng-if="!element.$edit">{{element.perm}}</span>
+								<div ng-if="element.$edit">
+									<select class="form-control" ng-model="element.perm">
+										<option ng-repeat="perm in permList" value="{{perm.id}}">{{perm.name}}</option>
+									</select>
+								</div>
+							</td>
+							<td data-title="wName" sortable="'name'">
+								<span ng-if="!element.$edit">{{element.name}}</span>
+								<div ng-if="element.$edit"><input class="form-control" type="text" ng-model="element.name" /></div>
+							</td>
+							<td data-title="wUsername" sortable="'username'">
+								<span ng-if="!element.$edit">{{element.username}}</span>
+								<div ng-if="element.$edit"><input class="form-control" type="text" ng-model="element.username" /></div>
+							</td>
+							<td data-title="wPassword" sortable="'password'" style="width:20px;">
+								<span ng-if="!element.$edit">{{element.password}}</span>
+								<div ng-if="element.$edit"><input class="form-control" type="text" ng-model="element.pass" /></div>
+							</td>
+							<td data-title="wLanguage" sortable="'lang'" style="width:75px;">
+								<span ng-if="!element.$edit">{{element.lang}}</span>
+								<div ng-if="element.$edit">
+									<select class="form-control" ng-model="element.lang2">
+										<option value="en">En</option>
+										<option value="ku" selected>Ku</option>
+									</select>
+
+								</div>
+							</td>
+							<td data-title="wDetail">
+								<span ng-if="!element.$edit">{{element.detail}}</span>
+								<div ng-if="element.$edit"><input class="form-control" type="text" ng-model="element.detail" /></div>
+							</td>
+							<td data-title="wActions" width="150">
+								<a ng-if="!element.$edit" href="" class="btn btn-default btn-xs" ng-click="element.$edit = true">{{l('Edit')}}</a>
+								<a ng-if="element.$edit" href="" class="btn btn-primary btn-ms" ng-click="element.$edit = false; saveEdit(element)">{{l('Save')}}</a>
+								<a ng-if="!element.$edit" href="" class="btn btn-danger btn-xs" ng-click="element.$delete = true; delete(element.id)">{{l('Delete')}}</a>
+							</td>
+						</tr>
+					</table>
+					<p class="bg-danger" ng-show="warning" style="padding:10px; text-align:center; font-size:1.5em;">{{l(warning)}} </p>
+
+
+
+
+				</div>
+			</div>
+		</div>
+
+		<div class="col-xs-12 col-sm-3 col-md-3">
+			<div class="list-group {{tr}}">
+				<a href="#" class="list-group-item">{{l('dashboard')}}</a>
+				<a href="#user" class="list-group-item disabled">{{l('backup')}}</a>
+				<a href="#user" class="list-group-item disabled">{{l('permission')}}</a>
+				<a class="list-group-item active">{{l('user')}}</a>
+				<a href="" class="list-group-item" ng-click="doPrint()">{{l('print')}}</a>
+			</div>
+			<div class="panel panel-info ">
+				<div class="panel-body {{tr}}">
+					<p>{{l('userPartTip')}}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

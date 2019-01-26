@@ -1,0 +1,90 @@
+<div class="row">
+	<div class="col-xs-12 col-md-12">
+		<div class="col-xs-12 col-sm-9 col-md-9">
+			<div id="printThis" class="panel panel-info ">
+				<div class="panel-heading">
+					<h3 class="panel-title">{{l('categoryList')}}
+						<a href="" class="btn btn-primary btn-xs pull-right noPrint" ng-click="stuffCatAdd = !stuffCatAdd">{{l('addNew')}}</a>
+					</h3>
+					
+				</div>
+				<div class="panel-body dashboard"  ng-init="catList()">
+					<table class="table noPrint" ng-if="stuffCatAdd">
+						<tr>
+							<th>Name</th>
+							<th>Detail</th>
+							<th>Action</th>
+						</tr>	
+						<tr>
+							<td><input class="form-control" type="text" ng-model="stuffCatAdding.name" /></td>
+							<td><input class="form-control" type="text" ng-model="stuffCatAdding.detail" /></td>
+							<td><a href="" class="btn btn-primary btn-ms" ng-click="saveAdd();">{{l('Save')}}</a></td>
+						</tr>
+					</table>
+
+
+					<table  ng-table="tableParams" class="table table-striped">
+
+						<tr ng-repeat="stuffCat in $data" ng-hide="stuffCat.$delete">
+							<td data-title="'ID'" sortable="'id'">
+								{{stuffCat.id}}
+							</td>
+							<td data-title="'Name'" sortable="'name'">
+								<span ng-if="!stuffCat.$edit">{{stuffCat.name}}</span>
+								<div ng-if="stuffCat.$edit"><input class="form-control" type="text" ng-model="stuffCat.name" /></div>
+								
+							</td>
+							<td data-title="'Detail'">
+								<span ng-if="!stuffCat.$edit">{{stuffCat.detail}}</span>
+								<div ng-if="stuffCat.$edit"><input class="form-control" type="text" ng-model="stuffCat.detail" /></div>
+							</td>
+							<td data-title="'Actions'" width="150">
+								<a ng-if="!stuffCat.$edit" href="" class="btn btn-default btn-xs" ng-click="stuffCat.$edit = true">{{l('Edit')}}</a>
+								<a ng-if="stuffCat.$edit" href="" class="btn btn-primary btn-ms" ng-click="stuffCat.$edit = false; saveEdit(stuffCat)">{{l('Save')}}</a>
+								<a ng-if="!stuffCat.$edit" href="" class="btn btn-danger btn-xs" ng-click="stuffCat.$delete = true; delete(stuffCat.id)">{{l('Delete')}}</a>
+							</td>
+						</tr>
+					</table>
+					<p class="bg-danger" ng-show="warning" style="padding:10px; text-align:center; font-size:1.5em;">{{l(warning)}} </p>
+
+
+
+
+				</div>
+			</div>
+		</div>
+
+		<div class="col-xs-12 col-sm-3 col-md-3">
+			<div class="list-group {{tr}}">
+				<a href="#" class="list-group-item">{{l('dashboard')}}</a>
+				<a  class="list-group-item active">{{l('stuffCategory')}}</a>
+				<a href="#stuff" class="list-group-item">{{l('stuff')}}</a>
+				<a href="" class="list-group-item" ng-click="doPrint()">{{l('print')}}</a>
+			</div>
+			<div class="panel panel-info ">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-sm-12 col-md-12">
+
+							<div class="thumbnail col-sm-12 col-md-12">
+								<img ng-src="images/big/slide1.png" class="img-responsive maxWidth" alt="...">
+								<div class="imageSlide" style="height:30px; ">
+									<ul class="row imageSlide" >
+										<li class="">
+											<img class="" ng-src="thumber.php?img=images/big/slide1.png&w=60" trc="images/big/slide1.png" >
+										</li>
+										<li class="">
+											<img class="" ng-src="thumber.php?img=images/big/slide2.png&w=60" trc="images/big/slide2.png" >
+										</li>
+									</ul>
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
