@@ -62,7 +62,7 @@ diakoApp.controller('stuffCatController', function($scope,$rootScope,dic,$routeP
 	}
 
 	$scope.saveEdit = function(stuffCat){
-		$http.post("http://localhost/shop/control.php?action=stuffCatEdit",{data:stuffCat}).
+		$http.post("control.php?action=stuffCatEdit",{data:stuffCat}).
 		success(function(data, status, headers, config) {
 			$log.info(data);
 			if(!data.Result){
@@ -75,7 +75,7 @@ diakoApp.controller('stuffCatController', function($scope,$rootScope,dic,$routeP
 	}
 
 	$scope.delete = function(id){
-		$http.post("http://localhost/shop/control.php?action=stuffCatDelete",{id:id}).
+		$http.post("control.php?action=stuffCatDelete",{id:id}).
 		success(function(data, status, headers, config) {
 			$log.info(data);
 			if(!data.Result){
@@ -89,7 +89,7 @@ diakoApp.controller('stuffCatController', function($scope,$rootScope,dic,$routeP
 
 	$scope.saveAdd = function(){
 		$log.info('adding',$scope.stuffCatAdding);
-		$http.post("http://localhost/shop/control.php?action=stuffCatAdd",{data:$scope.stuffCatAdding}).
+		$http.post("control.php?action=stuffCatAdd",{data:$scope.stuffCatAdding}).
 		success(function(data, status, headers, config) {
 			$log.info(data,$scope.stuffCatAdding);
 			if(data.Result){

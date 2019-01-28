@@ -118,3 +118,115 @@ Stack trace:
 #3 /var/www/html/shop/thumber.php(40): Thumber->__construct()
 #4 {main}
   thrown in /var/www/html/shop/thumber.php on line 288
+[28-Jan-2019 21:26:43 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function imagecreatefrompng() in /var/www/html/shop/thumber.php:288
+Stack trace:
+#0 /var/www/html/shop/thumber.php(269): Thumber->_generateThumb()
+#1 /var/www/html/shop/thumber.php(111): Thumber->_serveThumb()
+#2 /var/www/html/shop/thumber.php(91): Thumber->_logic()
+#3 /var/www/html/shop/thumber.php(40): Thumber->__construct()
+#4 {main}
+  thrown in /var/www/html/shop/thumber.php on line 288
+[28-Jan-2019 21:26:43 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function imagecreatefrompng() in /var/www/html/shop/thumber.php:288
+Stack trace:
+#0 /var/www/html/shop/thumber.php(235): Thumber->_generateThumb()
+#1 /var/www/html/shop/thumber.php(111): Thumber->_serveThumb()
+#2 /var/www/html/shop/thumber.php(91): Thumber->_logic()
+#3 /var/www/html/shop/thumber.php(40): Thumber->__construct()
+#4 {main}
+  thrown in /var/www/html/shop/thumber.php on line 288
+[28-Jan-2019 21:27:37 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function imagecreatefrompng() in /var/www/html/shop/thumber.php:288
+Stack trace:
+#0 /var/www/html/shop/thumber.php(269): Thumber->_generateThumb()
+#1 /var/www/html/shop/thumber.php(111): Thumber->_serveThumb()
+#2 /var/www/html/shop/thumber.php(91): Thumber->_logic()
+#3 /var/www/html/shop/thumber.php(40): Thumber->__construct()
+#4 {main}
+  thrown in /var/www/html/shop/thumber.php on line 288
+[28-Jan-2019 21:27:37 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function imagecreatefrompng() in /var/www/html/shop/thumber.php:288
+Stack trace:
+#0 /var/www/html/shop/thumber.php(235): Thumber->_generateThumb()
+#1 /var/www/html/shop/thumber.php(111): Thumber->_serveThumb()
+#2 /var/www/html/shop/thumber.php(91): Thumber->_logic()
+#3 /var/www/html/shop/thumber.php(40): Thumber->__construct()
+#4 {main}
+  thrown in /var/www/html/shop/thumber.php on line 288
+[28-Jan-2019 21:27:56 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function imagecreatefrompng() in /var/www/html/shop/thumber.php:288
+Stack trace:
+#0 /var/www/html/shop/thumber.php(269): Thumber->_generateThumb()
+#1 /var/www/html/shop/thumber.php(111): Thumber->_serveThumb()
+#2 /var/www/html/shop/thumber.php(91): Thumber->_logic()
+#3 /var/www/html/shop/thumber.php(40): Thumber->__construct()
+#4 {main}
+  thrown in /var/www/html/shop/thumber.php on line 288
+[28-Jan-2019 21:28:21 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function imagecreatefrompng() in /var/www/html/shop/thumber.php:288
+Stack trace:
+#0 /var/www/html/shop/thumber.php(269): Thumber->_generateThumb()
+#1 /var/www/html/shop/thumber.php(111): Thumber->_serveThumb()
+#2 /var/www/html/shop/thumber.php(91): Thumber->_logic()
+#3 /var/www/html/shop/thumber.php(40): Thumber->__construct()
+#4 {main}
+  thrown in /var/www/html/shop/thumber.php on line 288
+[28-Jan-2019 21:28:34 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function imagecreatefrompng() in /var/www/html/shop/thumber.php:288
+Stack trace:
+#0 /var/www/html/shop/thumber.php(269): Thumber->_generateThumb()
+#1 /var/www/html/shop/thumber.php(111): Thumber->_serveThumb()
+#2 /var/www/html/shop/thumber.php(91): Thumber->_logic()
+#3 /var/www/html/shop/thumber.php(40): Thumber->__construct()
+#4 {main}
+  thrown in /var/www/html/shop/thumber.php on line 288
+[28-Jan-2019 21:28:34 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function imagecreatefrompng() in /var/www/html/shop/thumber.php:288
+Stack trace:
+#0 /var/www/html/shop/thumber.php(235): Thumber->_generateThumb()
+#1 /var/www/html/shop/thumber.php(111): Thumber->_serveThumb()
+#2 /var/www/html/shop/thumber.php(91): Thumber->_logic()
+#3 /var/www/html/shop/thumber.php(40): Thumber->__construct()
+#4 {main}
+  thrown in /var/www/html/shop/thumber.php on line 288
+[28-Jan-2019 21:28:34 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function imagecreatefrompng() in /var/www/html/shop/thumber.php:288
+Stack trace:
+#0 /var/www/html/shop/thumber.php(269): Thumber->_generateThumb()
+#1 /var/www/html/shop/thumber.php(111): Thumber->_serveThumb()
+#2 /var/www/html/shop/thumber.php(91): Thumber->_logic()
+#3 /var/www/html/shop/thumber.php(40): Thumber->__construct()
+#4 {main}
+  thrown in /var/www/html/shop/thumber.php on line 288
+[28-Jan-2019 21:28:34 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function imagecreatefrompng() in /var/www/html/shop/thumber.php:288
+Stack trace:
+#0 /var/www/html/shop/thumber.php(235): Thumber->_generateThumb()
+#1 /var/www/html/shop/thumber.php(111): Thumber->_serveThumb()
+#2 /var/www/html/shop/thumber.php(91): Thumber->_logic()
+#3 /var/www/html/shop/thumber.php(40): Thumber->__construct()
+#4 {main}
+  thrown in /var/www/html/shop/thumber.php on line 288
+[28-Jan-2019 21:28:37 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function imagecreatefrompng() in /var/www/html/shop/thumber.php:288
+Stack trace:
+#0 /var/www/html/shop/thumber.php(235): Thumber->_generateThumb()
+#1 /var/www/html/shop/thumber.php(111): Thumber->_serveThumb()
+#2 /var/www/html/shop/thumber.php(91): Thumber->_logic()
+#3 /var/www/html/shop/thumber.php(40): Thumber->__construct()
+#4 {main}
+  thrown in /var/www/html/shop/thumber.php on line 288
+[28-Jan-2019 21:28:37 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function imagecreatefrompng() in /var/www/html/shop/thumber.php:288
+Stack trace:
+#0 /var/www/html/shop/thumber.php(269): Thumber->_generateThumb()
+#1 /var/www/html/shop/thumber.php(111): Thumber->_serveThumb()
+#2 /var/www/html/shop/thumber.php(91): Thumber->_logic()
+#3 /var/www/html/shop/thumber.php(40): Thumber->__construct()
+#4 {main}
+  thrown in /var/www/html/shop/thumber.php on line 288
+[28-Jan-2019 21:28:37 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function imagecreatefrompng() in /var/www/html/shop/thumber.php:288
+Stack trace:
+#0 /var/www/html/shop/thumber.php(235): Thumber->_generateThumb()
+#1 /var/www/html/shop/thumber.php(111): Thumber->_serveThumb()
+#2 /var/www/html/shop/thumber.php(91): Thumber->_logic()
+#3 /var/www/html/shop/thumber.php(40): Thumber->__construct()
+#4 {main}
+  thrown in /var/www/html/shop/thumber.php on line 288
+[28-Jan-2019 21:28:37 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function imagecreatefrompng() in /var/www/html/shop/thumber.php:288
+Stack trace:
+#0 /var/www/html/shop/thumber.php(269): Thumber->_generateThumb()
+#1 /var/www/html/shop/thumber.php(111): Thumber->_serveThumb()
+#2 /var/www/html/shop/thumber.php(91): Thumber->_logic()
+#3 /var/www/html/shop/thumber.php(40): Thumber->__construct()
+#4 {main}
+  thrown in /var/www/html/shop/thumber.php on line 288

@@ -70,7 +70,7 @@ diakoApp.controller('stuffController', function($scope,$rootScope,dic,$routePara
 	}
 
 	$scope.saveEdit = function(stuff){
-		$http.post("http://localhost/shop/control.php?action=stuffEdit",{data:stuff}).
+		$http.post("control.php?action=stuffEdit",{data:stuff}).
 		success(function(data, status, headers, config) {
 			$log.info(data);
 			if(!data.Result){
@@ -87,7 +87,7 @@ diakoApp.controller('stuffController', function($scope,$rootScope,dic,$routePara
 			return false;
 		}
 
-		$http.post("http://localhost/shop/control.php?action=stuffDelete",{id:id}).
+		$http.post("control.php?action=stuffDelete",{id:id}).
 		success(function(data, status, headers, config) {
 			$log.info(data);
 			if(!data.Result){
@@ -103,7 +103,7 @@ diakoApp.controller('stuffController', function($scope,$rootScope,dic,$routePara
 
 	$scope.saveAdd = function(){
 		// $log.info('adding',$scope.stuffAdding);
-		$http.post("http://localhost/shop/control.php?action=stuffAdd",{data:$scope.stuffAdding}).
+		$http.post("control.php?action=stuffAdd",{data:$scope.stuffAdding}).
 		success(function(data, status, headers, config) {
 			$log.info('success',data,$scope.stuffAdding);
 			if(data.Result){
