@@ -8,7 +8,20 @@ class report extends base{
 				return json_encode(['Result'=>false,'Records'=>'You_Havent_Permission']);
 
 			$result = ['Result'=>'OK'];
-			$r = self::$PDO->query("SELECT substr(date,1,10) as date,sum(qty) as totalQty,sum(price* qty) totalSell,sum(profit) as totalProfit FROM stuff_out WHERE 1 group by substr(date,1,10) ORDER BY date desc");
+			/*
+			$r = self::$PDO->query("SELECT substr(date,1,10) as date,sum(qty) as totalQty,sum(price* qty) totalSell, sum(profit) as totalProfit
+				FROM stuff_out WHERE 1 group by substr(date,1,10)
+				ORDER BY date desc");
+
+			 */
+			$r = self::$PDO->query("select date, sum(totalQty) as totalQty, sum(totalSell) as totalSell, sum(totalProfit) as totalProfit, sum(totalDiscount) as totalDiscount from (
+SELECT substr(date,1,10) as date,sum(qty) as totalQty,sum(price* qty) totalSell, sum(profit) as totalProfit, null as totalDiscount
+ FROM stuff_out WHERE 1 group by substr(date,1,10)
+union 
+select substr(date,1,10) as date, null as totalQty, null as totalSell, null as totalProfit, sum(discount) as totalDiscount
+from invoice where 1 group by substr(date,1,10) 
+) as x
+group by date");
 			$result['Records'] = $r->fetchAll(PDO::FETCH_ASSOC);
 
 			if(!$result['Records'])

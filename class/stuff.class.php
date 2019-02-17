@@ -149,7 +149,7 @@ class stuff extends base{
 
 			$result = self::$PDO->query("SELECT price_buy from stuff WHERE id = '$idStuff'");
 			$price_buy = $result->fetch(PDO::FETCH_ASSOC)['price_buy'];
-			$profit = ($price - $price_buy) * $qty;
+			$profit = (floatval($price) - floatval($price_buy)) * intval($qty);
 
 			$var['data'] = ['id_stuff'=>$idStuff,'id_invoice'=>$idInvoice,'qty'=>$qty,'date'=>$date,'price'=>$price];
 

@@ -21,8 +21,11 @@
 							<td data-title="wTotalSell" sortable="'totalSell'">
 								<span>{{element.totalSell | noFractionCurrency:""}}</span>
 							</td>
-							<td data-title="wTotalProfit" sortable="'totalSell'">
-								<span>{{element.totalProfit | noFractionCurrency:""}}</span>
+							<td data-title="'Discounts'" sortable="'discount'">
+								<span>{{element.totalDiscount | noFractionCurrency:""}}</span>
+							</td>
+							<td data-title="'Grand Total'" >
+								<span>{{element.totalSell - element.totalDiscount | noFractionCurrency:""}}</span>
 							</td>
 
 						</tr>

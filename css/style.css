@@ -1,3 +1,8 @@
+.ng-table th{
+	text-aling: right;
+}
+
+
 .num-icon {
   cursor: default;
   display: inline-block;

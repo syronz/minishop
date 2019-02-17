@@ -92,9 +92,10 @@ class invoice extends base{
 
 			$var['data']['date'] = date('Y-m-d H:i:s',time());
 			$var['data']['id_user'] = $_SESSION['id'];
-			$var['data']['name'] = @$var['data']['customer_info']['name'];
-			$var['data']['phone'] = @$var['data']['customer_info']['phone'];
+			$var['data']['name'] = @$var['data']['customer_info']['name'] ?  @$var['data']['customer_info']['name'] : @$var['data']['customerName'];
+			$var['data']['phone'] = @$var['data']['customer_info']['phone'] ?  @$var['data']['customer_info']['phone'] : @$var['data']['customerPhone'];
 			$var['data']['detail'] = @$var['data']['customer_info']['detail'];
+			$var['data']['tax'] = floatval(@$var['data']['discountAmount']);
 			unset($var['data']['customer_info']);
 
 			// dsh($var);

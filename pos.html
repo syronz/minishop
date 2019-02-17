@@ -96,6 +96,8 @@
 							$scope.invoice_sub_total();
 							$scope.newCode = '';
 							$scope.newQty = 1;
+							$scope.customerName = '';
+							$scope.customerPhone = '';
 						}).
 						error(function(data, status, headers, config) {
 							$log.info(data);
@@ -151,7 +153,10 @@
 			}
 
 
-
+			$scope.saveInvoice = function(){
+				console.log("save presssed");
+				$scope.saveAdd();
+			}
 
 			$scope.printInvoice = function(){
 				var printDivCSS = new String ("<style>.noPrint,h6,.img{display:none}h2,h3,h5{text-align:center}*{font-family:sans serif;margin:0}table{border-collapse:collapse;border:1px solid gray;width:100%;margin:10px auto}.facture_footer,.facture_header{background-image:url();background-repeat:no-repeat;width:100%}td{border:1px solid gray;text-align:right;padding-right:3px;font-size:9pt;font-family:sans serif;padding-top:1px;padding-bottom:1px}tr:nth-child(even){background-color:#FFF}h5{margin-top:30px;margin-bottom:5px}.clear{clear:both}h2,h3{font-size:9pt}.facture_header{height:150px;background-size:650px 140px}.facture_footer{height:100px;background-size:650px 92px}th{font-size:9pt;height:150%;background-color:#DDD}a{text-decoration:none}</style>");
@@ -185,6 +190,15 @@
 						<input class="form-control" ng-model="newQty" type="number" value="1" size="4" ng-required ng-validate="integer" placeholder="qty" style="width:70px;">
 					</div>
 					
+					<div class="form-group">
+						<label for="barcode">Name</label>
+						<input class="form-control" ng-model="invoice.customerName" type="text" placeholder="Name" style="width:230px;">
+					</div>
+
+					<div class="form-group">
+						<label for="barcode">Phone</label>
+						<input class="form-control" ng-model="invoice.customerPhone" type="text"  placeholder="Mobile" style="width:170px;">
+					</div>
 
 				</div>
 				<div id="printThis">
